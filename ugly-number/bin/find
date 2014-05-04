@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'ugly_number'
+require 'optparse'
+
+class Find
+    def self.parse(args)
+	options = {}
+	opt_parser = OptionParser.new do |opts|
+	    opts.banner = "Usage: ugly_number [options]"
+	    opts.on("-n", "--number NUMBER", Integer, "nth Ugly number")do |f|
+		options[:number] = f
+	    end
+
+	    opts.on_tail("-h", "--help", "To get 11th Ugly no ./ugly_number -n 50") do
+		puts opts
+            end
+	end
+	opt_parser.parse!(args)
+	options
+    end
+end
+
+options = Find.parse(ARGV)
+un = UglyNumber.new(options)
+un.get_nth_ugly_no
