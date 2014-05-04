@@ -18,7 +18,7 @@ Sample output
 
 The 1500'th ugly number is `<number>`.
 
-### Instructin to find nth Ugly Nummber
+### Instruction to find nth Ugly Nummber
 `$./bin/find -n <number>` for nth ugly number
 or 
 `./bin/find` for 150th ugly number
