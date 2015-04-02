@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '..','lib' )
+
+require 'traffic_manager'
+require 'optparse'
+
+options = {}
+
+optparse = OptionParser.new do |opts|
+	opts.banner  = "Usage: search [options]"
+		opts.on("-f", "--file FILENAME", "input data file name") do |f|
+			options[:filename] = f  
+	end
+end
+
+begin
+	optparse.parse!
+	if options[:filename].nil?
+		puts "Missing argument: -f"
+		puts optparse
+		exit
+	end
+	rescue OptionParser::InvalidOption, OptionParser::MissingArgument
+		puts $!.to_s
+		puts optparse
+	exit
+end
+
+begin
+	traffic_manager = TrafficManager.new(options[:filename])
+	traffic_manager.analyze()
+	traffic_manager.print_traffic()
+rescue Exception => e
+	$stderr.puts "ERROR: #{e.message}"
+end
